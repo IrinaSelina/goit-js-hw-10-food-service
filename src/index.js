@@ -5,48 +5,42 @@ const jsMenu = document.querySelector('.js-menu')
 const body = document.querySelector('body')
 const input = document.querySelector('.theme-switch__toggle')
 const makeMenuCard = menuCard(cards);
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+};
 jsMenu.insertAdjacentHTML('beforeend', makeMenuCard)
-
 function menuCard(cards) {
-  
    return cardsTemplate(cards)
 }
 body.classList.add("light-theme")
-window.addEventListener('click', changeTheme)
-
 
 function changeTheme(evn) {
-      
    if (evn.target === input) {
-      // const curentClass = body.className;
-      if (body.classList.contains('light-theme')) {
+      if (input.checked) {
          body.classList.replace('light-theme', 'dark-theme')
          localStorage.setItem('theme', body.className)
-        
-         return
+         localStorage.setItem('check', input.checked)
+         return                    
       }
-      if (body.classList.contains('dark-theme')) {
+      if (!input.checked) {
          body.classList.replace('dark-theme', 'light-theme')
          localStorage.setItem('theme', body.className)
-         
-         return 
+         localStorage.setItem('check', input.checked)
       }
-
    }
+   }    
+
+ window.addEventListener('click', changeTheme)
    
-}
-// window.addEventListener("DOMContentLoaded", pageReb)
-
-// function pageReb(evt) {
-//     evt.preventDefault();
-// }
-//   localStorage.setItem('theme', className)
-
-// function onClassBody() {
-//    const curentClass = body.className;
-//    console.log(curentClass);
-// }
-
-// localStorage.setItem('theme')
-
+function chek() {
+   if (localStorage.getItem('theme') === Theme.DARK) {
+      body.classList.toggle(Theme.DARK)
+      input.checked = localStorage.getItem('check')
+      return
+   }
+   return
+   }
+ 
+chek()
 
